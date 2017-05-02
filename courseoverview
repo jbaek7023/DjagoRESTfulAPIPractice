@@ -1,0 +1,12 @@
+README
+.gitignore <- copy and paste
+vagrant init
+
+#confiure Vagrantfile <-just copy and paste
+
+vagrant up
+
+#connect to the server
+vagrant ssh
+cd /vagrant
+
