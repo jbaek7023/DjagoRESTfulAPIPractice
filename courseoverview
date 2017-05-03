@@ -29,3 +29,15 @@ python manage.py startapp profiles_api
     'profiles_api',
 
 save requirements
+
+// profiles_api/models.py
+// settings.py
+
+
+APIView -> make API end-point
+-APIView Uses standard HTTP methods for functions: GET, POST,PUT, PATCH, DELETE
+Gives you the most control over the logic
+-When to use APIViews?
+full control over the logic, process ing files, and rendering API,
+When you're calling other APIs/services,
+Accessing local files or data
