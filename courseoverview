@@ -41,3 +41,6 @@ Gives you the most control over the logic
 full control over the logic, process ing files, and rendering API,
 When you're calling other APIs/services,
 Accessing local files or data
+
+*PUT : CREATE or UPDATE
+*PATCH: 
