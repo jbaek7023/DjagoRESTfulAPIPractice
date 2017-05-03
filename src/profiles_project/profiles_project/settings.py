@@ -121,3 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+###(courseadded) in profiles_api app, it goes to models.py and find for UserProfile class.
+AUTH_USER_MODEL = 'profiles_api.UserProfile'
