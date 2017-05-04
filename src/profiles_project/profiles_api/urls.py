@@ -9,7 +9,8 @@ from django.conf.urls import include
 from .views import (
     HelloAPIView,
     HelloViewSet,
-    UserProfileViewSet
+    UserProfileViewSet,
+    LoginViewSet
     )
 
 
@@ -17,6 +18,8 @@ router = DefaultRouter()
 router.register('hello-viewset', HelloViewSet, base_name = 'hello-viewset')
 # DRF automatically find base_name so we don't need to specify base_name
 router.register('profile', UserProfileViewSet)
+# it's not module viewset so we need to specify base_name
+router.register('login', LoginViewSet, base_name = 'login')
 
 urlpatterns = [
     url(r'^hello-view/', HelloAPIView.as_view(), name='hello'),

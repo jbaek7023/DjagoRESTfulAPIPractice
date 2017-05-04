@@ -20,6 +20,15 @@ from . import permissions
 # token authentication : the most effective way
 from rest_framework.authentication import TokenAuthentication
 
+# restframework filters module
+from rest_framework import filters
+
+# DRF has login-API view to take care of Login
+# But it fakes APIView and it doesn't have viewsets
+# We don't have router for that!
+# So we need to trick it
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
 
 # Create your views here.
 class HelloAPIView(APIView):
@@ -139,3 +148,34 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     # Now you can't Delete or update it! U can only see it
     permission_classes = (permissions.UpdateOwnProfile,)
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',)
+
+class LoginViewSet(viewsets.ViewSet):
+    """checks email and password and returns an auth token"""
+    serializer_class = AuthTokenSerializer
+
+    def create(self, request):
+        """Use the ObtainAuthToken APIView to validate and create a token"""
+        # pass request and call the POST function
+        # () <- making new object
+
+        # it returns a temporary token
+        # "token": "59a999eb165158d2b3c0713332c174d551fb0160"
+
+        # the client has to ensure the token is included in every HTTP request
+        # Authorization HTTP Header will include our token.
+        # Then we can check if HTTP request has VALID token.
+        # If the token is valid, 200.
+        # If it's not valid. return 401 or authorize response to regenerate token!
+
+
+        # HTTP header is like meta-data : data about request
+
+        return ObtainAuthToken().post(request)
+
+        # When u test on the browser, ensure that 'filter' is running.
+        # To apply the token only the page
+
+        # Add Authorization -> Token 59a999eb165158d2b3c0713332c174d551fb0160
