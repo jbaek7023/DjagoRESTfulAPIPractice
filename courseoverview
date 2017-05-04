@@ -53,3 +53,14 @@ You need a sunoke CRUD interface
 u want a quick and simple API.
 U don't need customzation on the Logic
 working on standard data structures
+
+----------------
+Build Plan
+/api/profile - list all profiles
+GET( list profiles)
+POST(create profiles)
+
+/api/profile/<profile_id> - manage specific Profile
+- GET ( view specific Profile)
+- PUT/ PATCH (update profile)
+-DELETE ( remove profile)

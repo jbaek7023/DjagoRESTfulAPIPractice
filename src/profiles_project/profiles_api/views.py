@@ -13,14 +13,16 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 
-from .serializers import HelloSerializer
+from . import serializers
+from . import models
+
 
 # Create your views here.
 class HelloAPIView(APIView):
     """Test API View."""
 
     # serializer class is HelloSerializer for this view
-    serializer_class = HelloSerializer
+    serializer_class = serializers.HelloSerializer
 
     def get(self, request, format=None):
         """Returns a list of APIView Features."""
@@ -40,7 +42,7 @@ class HelloAPIView(APIView):
     def post(self, request):
         """Create Hello Message with our name"""
         # pass data in HelloSerializer
-        serializer = HelloSerializer(data=request.data)
+        serializer = serializers.HelloSerializer(data=request.data)
 
         if serializer.is_valid():
             # Retrieve specific field name (in serializers specified)
@@ -69,7 +71,7 @@ class HelloAPIView(APIView):
 
 class HelloViewSet(viewsets.ViewSet):
     """Test API Viewset"""
-    serializer_class = HelloSerializer
+    serializer_class = serializers.HelloSerializer
 
     def list(self, request):
         """Return Hello Message"""
@@ -86,7 +88,7 @@ class HelloViewSet(viewsets.ViewSet):
     def create(self, request):
         """Create a new hello message."""
         # Define Serializer Object
-        serializer = HelloSerializer(data=request.data)
+        serializer = serializers.HelloSerializer(data=request.data)
 
         if serializer.is_valid():
             name = serializer.data.get('name')
@@ -115,3 +117,12 @@ class HelloViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         """Handles removing an object"""
         return Response({'http_method': 'DELETE'})
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handles creating, creating and updating profiles"""
+    # It already knows which model to serializer
+    # because since it's defined in UserProfileSerializer class
+    serializer_class = serializers.UserProfileSerializer
+
+    # List data
+    queryset = models.UserProfile.objects.all()
