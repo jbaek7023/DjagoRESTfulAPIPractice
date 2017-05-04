@@ -15,6 +15,10 @@ from rest_framework import viewsets
 
 from . import serializers
 from . import models
+from . import permissions
+
+# token authentication : the most effective way
+from rest_framework.authentication import TokenAuthentication
 
 
 # Create your views here.
@@ -126,3 +130,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     # List data
     queryset = models.UserProfile.objects.all()
+
+    # authentication class variable
+    # tuple : immutable list
+    # don't forget the put the comma
+    # U can put more than one authentication or permission... that's why we use token
+    authentication_classes = (TokenAuthentication,)
+
+    # Now you can't Delete or update it! U can only see it
+    permission_classes = (permissions.UpdateOwnProfile,)
