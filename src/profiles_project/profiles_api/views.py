@@ -30,6 +30,10 @@ from rest_framework import filters
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 
+# ReadOnly Access if it's authenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
 class HelloAPIView(APIView):
     """Test API View."""
@@ -179,3 +183,16 @@ class LoginViewSet(viewsets.ViewSet):
         # To apply the token only the page
 
         # Add Authorization -> Token 59a999eb165158d2b3c0713332c174d551fb0160
+
+# ModelViewSet vs ViewSet
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
+    """Handling creating, reading and updating profile feed items"""
+    serializer_class = serializers.ProfileFeedItemSerializer
+    queryset = models.ProfileFeedItem.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.PostOwnStatus, IsAuthenticated)
+
+    # When the REST creates new object, perform_create is called.
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in users """
+        serializer.save(user_profile=self.request.user)

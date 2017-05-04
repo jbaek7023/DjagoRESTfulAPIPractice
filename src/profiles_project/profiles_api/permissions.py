@@ -16,3 +16,14 @@ class UpdateOwnProfile(permissions.BasePermission):
             # Safe methods : HTTP methods which is classified SAFE_METHODS
         else:
             return obj.id == request.user.id
+
+# User can only update feed.
+class PostOwnStatus(permissions.BasePermission):
+    """Allow users to edit their own post"""
+    def has_object_permission(self, request, view, obj):
+        """Checks the user is trying to update their own status"""
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        else:
+            return obj.user_profile.id == request.user.id

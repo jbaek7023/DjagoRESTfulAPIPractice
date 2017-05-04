@@ -10,7 +10,8 @@ from .views import (
     HelloAPIView,
     HelloViewSet,
     UserProfileViewSet,
-    LoginViewSet
+    LoginViewSet,
+    UserProfileFeedViewSet
     )
 
 
@@ -20,6 +21,8 @@ router.register('hello-viewset', HelloViewSet, base_name = 'hello-viewset')
 router.register('profile', UserProfileViewSet)
 # it's not module viewset so we need to specify base_name
 router.register('login', LoginViewSet, base_name = 'login')
+# it's model based!
+router.register('feed', UserProfileFeedViewSet)
 
 urlpatterns = [
     url(r'^hello-view/', HelloAPIView.as_view(), name='hello'),
