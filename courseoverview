@@ -33,7 +33,7 @@ save requirements
 // profiles_api/models.py
 // settings.py
 
-
+----------------------------------
 APIView -> make API end-point
 -APIView Uses standard HTTP methods for functions: GET, POST,PUT, PATCH, DELETE
 Gives you the most control over the logic
@@ -43,4 +43,13 @@ When you're calling other APIs/services,
 Accessing local files or data
 
 *PUT : CREATE or UPDATE
-*PATCH: 
+*PATCH:
+
+---------------------------------
+Viewsets -> logic for end-point
+List, Create, Retrieve, Update, Partial Update, Deletes
+-When to use Viewsets?
+You need a sunoke CRUD interface
+u want a quick and simple API.
+U don't need customzation on the Logic
+working on standard data structures

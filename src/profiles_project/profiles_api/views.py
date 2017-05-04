@@ -3,12 +3,15 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
+
+
 # get response object from rest_framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # Status has different HTTP Status Code
 from rest_framework import status
+from rest_framework import viewsets
 
 from .serializers import HelloSerializer
 
@@ -64,4 +67,16 @@ class HelloAPIView(APIView):
         """Deletes and object"""
         return Response({'method': 'delete'})
 
-# views.py: Application Logic End-Point
+class HelloViewSet(viewsets.ViewSet):
+    """Test API Viewset"""
+    def list(self, request):
+        """Return Hello Message"""
+        a_viewset = [
+            'Uses actions (list, create, retrieve, update, partial_update)',
+            'Automatically maps to URLs using Routers',
+            'Provides more functionality with less code.'
+        ]
+
+        return Response({
+            'message': 'Hello World!', 'a_viewset': a_viewset
+        })
